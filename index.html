@@ -983,11 +983,12 @@
 <script src="https://unpkg.com/imagekit-javascript"></script>
 <script>
   // ImageKit Initialization
-  var imagekit = new ImageKit({
-    publicKey: "public_hVAN26ygTqOwXiKvqHBCVcY6jXA=",   // তোমার পাবলিক কী
-    urlEndpoint: "https://ik.imagekit.io/msharifulvisionary", // তোমার ImageKit endpoint
-    authenticationEndpoint: "https://student-profile-system-physics-5ex3pqimq.vercel.app/api/imagekit-auth"
-  });
+  const imagekit = new ImageKit({
+  publicKey: "public_hVAN26ygTqOwXiKvqHBCVcY6jXA=", // আপনার ImageKit publicKey
+  urlEndpoint: "https://ik.imagekit.io/msharifulvisionary", // আপনার ImageKit URL-endpoint
+  authenticationEndpoint: "/api/imagekit-auth" // নতুন এবং সঠিক URL
+});
+
 
   // Example: File upload function
   async function uploadFile(file) {
