@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Profile System</title>
+    <title>Students Profile System</title>
     <style>
         /* Base styles from original design */
         body {
@@ -753,9 +753,9 @@
 </head>
 <body>
     <div class="container">
-         Login Section 
+                              <!-- Login Section-->
         <div id="login-section" class="login-section">
-            <h1 class="login-title">ছাত্র তালিকা লগইন</h1>
+            <h1 class="login-title">শিক্ষার্থী তালিকা লগইন</h1>
             <div id="login-message"></div>
             <form class="login-form" id="login-form">
                 <div class="form-group">
@@ -775,7 +775,7 @@
             </form>
         </div>
 
-         Main Student Section 
+        <!-- Main Student Section-->
         <div id="main-section" class="hidden">
              Navigation 
             <div class="nav-section">
@@ -791,13 +791,13 @@
 
             <div id="main-message"></div>
 
-             Search Bar 
+                     <!-- search bar-->
             <div class="studentssection-header">
                 <input type="text" id="studentssection-search-input" placeholder="নাম বা রোল দিয়ে খুঁজুন">
                 <span class="search-icon">🔍</span>
             </div>
 
-             Stats Section 
+                                  <!-- state section--> 
             <div class="studentssection-stats">
                 <div class="studentssection-stat-box" id="total-students-box">
                     <div class="number" id="studentssection-total-students">0</div>
@@ -821,14 +821,14 @@
                 </div>
             </div>
 
-             Student List 
+                                  <!-- student list-->
             <div class="studentssection-list" id="studentssection-student-list">
-                 Student cards will be dynamically inserted here 
+                 <!--Student cards will be dynamically inserted here -->
             </div>
         </div>
     </div>
 
-     Profile Edit Modal 
+                          <!-- profile edit modal--> 
     <div id="profile-edit-modal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeEditProfile()">&times;</span>
@@ -897,7 +897,7 @@
         </div>
     </div>
 
-     Profile View Modal 
+                          <!-- profile view modal--> 
     <div id="profile-view-modal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeProfileView()">&times;</span>
@@ -907,7 +907,7 @@
         </div>
     </div>
 
-     Change Password Modal 
+                          <!-- password view--> 
     <div id="change-password-modal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeChangePassword()">&times;</span>
@@ -945,7 +945,7 @@
         </div>
     </div>
 
-     Firebase SDK 
+                          <!-- Firebase SDK-->
     <script type="module">
         // Import Firebase functions
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -975,16 +975,39 @@
         window.updateDoc = updateDoc;
     </script>
 
-     ImageKit SDK 
+                          <!-- Imagekit SDK-->
     <script src="https://unpkg.com/imagekit-javascript/dist/imagekit.min.js"></script>
 
-     Main JavaScript 
+                          <!-- Main JavaScript-->
+                          
+<script src="https://unpkg.com/imagekit-javascript"></script>
+<script>
+  // ImageKit Initialization
+  var imagekit = new ImageKit({
+    publicKey: "public_hVAN26ygTqOwXiKvqHBCVcY6jXA=",   // তোমার পাবলিক কী
+    urlEndpoint: "https://ik.imagekit.io/msharifulvisionary", // তোমার ImageKit endpoint
+    authenticationEndpoint: "https://student-profile-system-physics-5ex3pqimq.vercel.app/api/imagekit-auth"
+  });
+
+  // Example: File upload function
+  async function uploadFile(file) {
+    try {
+      const response = await imagekit.upload({
+        file: file, // input[type=file] থেকে আসবে
+        fileName: "student-photo.jpg",
+      });
+      console.log("Upload success:", response);
+
+      // ওয়েবসাইটে ছবি দেখানোর জন্য
+      document.getElementById("preview").src = response.url;
+    } catch (error) {
+      console.error("Upload error:", error);
+      alert("ছবি আপলোড ব্যর্থ হলো 😢");
+    }
+  }
+</script>
     <script>
-        var imagekit = new ImageKit({
-            publicKey: "public_hVAN26ygTqOwXiKvqHBCVcY6jXA=",
-            urlEndpoint: "https://ik.imagekit.io/msharifulvisionary",
-            authenticationEndpoint: "https://student-profile-system-physics-5ex3pqimq.vercel.app/api/imagekit-auth"
-        });
+
 
         // Global variables
         let currentUser = null;
