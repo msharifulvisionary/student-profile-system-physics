@@ -1,0 +1,21 @@
+{
+  "name": "student-profile-system",
+  "version": "1.0.0",
+  "description": "Student Profile Management System with Firebase and ImageKit",
+  "main": "imagekit-auth-server.js",
+  "scripts": {
+    "start": "node imagekit-auth-server.js",
+    "dev": "nodemon imagekit-auth-server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "imagekit": "^4.1.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
