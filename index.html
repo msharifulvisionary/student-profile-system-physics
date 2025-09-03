@@ -983,7 +983,7 @@
         var imagekit = new ImageKit({
             publicKey: "public_hVAN26ygTqOwXiKvqHBCVcY6jXA=",
             urlEndpoint: "https://ik.imagekit.io/msharifulvisionary",
-            authenticationEndpoint: "https://studentprofileslist.netlify.app/" // You'll need to update this
+            authenticationEndpoint: "https://api.imagekit.io/v1/files/upload"
         });
 
         // Global variables
@@ -1139,7 +1139,6 @@
             { "name": "মো তানমীম", "roll": 143, "gender": "male" },
             { "name": "মোঃ রাকিবুল হাসান", "roll": "11(Old)", "gender": "male", "isOld": true },
             { "name": "মোঃ নাদিম নাসিব", "roll": "15(Old)", "gender": "male", "isOld": true },
-            { "name": "উদয়", "roll": "79(Old)", "gender": "male", "isOld": true },
             { "name": "ইয়াছমিন আক্তার", "roll": "116(Old)", "gender": "female", "isOld": true }
         ];
 
@@ -1331,17 +1330,21 @@
             try {
                 showMessage('edit-message', 'ছবি আপলোড হচ্ছে...', 'success');
 
+                // Convert file to base64 for client-side upload
+                const base64File = await convertToBase64(file);
+                
                 // Create a unique filename
                 const fileName = `student_${currentUser.roll}_${Date.now()}.jpg`;
 
-                // Upload to ImageKit with proper error handling
+                // Upload to ImageKit using client-side method
                 const uploadResponse = await new Promise((resolve, reject) => {
                     imagekit.upload({
-                        file: file,
+                        file: base64File,
                         fileName: fileName,
                         folder: '/student-profiles/',
                         tags: ['student', 'profile', `roll-${currentUser.roll}`],
                         useUniqueFileName: true,
+                        isPrivateFile: false, // Make it public for easy access
                         transformation: {
                             pre: 'w-300,h-300,c-maintain_ratio'
                         }
@@ -1383,10 +1386,21 @@
                     errorMessage = 'ছবি আপলোড সার্ভিস কনফিগার করা হয়নি';
                 } else if (error.message && error.message.includes('network')) {
                     errorMessage = 'ইন্টারনেট সংযোগ চেক করুন';
+                } else if (error.message && error.message.includes('file')) {
+                    errorMessage = 'ছবি ফাইল সমস্যা আছে, অন্য ছবি চেষ্টা করুন';
                 }
                 
                 showMessage('edit-message', errorMessage, 'error');
             }
+        }
+
+        function convertToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
         }
 
         // Profile edit form handler
