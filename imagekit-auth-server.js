@@ -18,10 +18,11 @@ app.use(
 
 // Initialize ImageKit
 const imagekit = new ImageKit({
-  publicKey: "public_hVAN26ygTqOwXiKvqHBCVcY6jXA=",
-  privateKey: "private_ocuHLfwK9n883Jf7W+xt4TAQGUY=",
-  urlEndpoint: "https://ik.imagekit.io/msharifulvisionary",
+  publicKey: process.env.VITE_IMAGEKIT_PUBLIC_KEY,
+  privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
+  urlEndpoint: process.env.VITE_IMAGEKIT_URL_ENDPOINT,
 })
+
 
 // Authentication endpoint for ImageKit
 app.get("/auth", (req, res) => {
